@@ -1,0 +1,18 @@
+#! /bin/bash
+
+fileName=`zenity --file-selection`
+file "$fileName" | grep "PNG image data" > /dev/null
+if [ "$?" != "0" ]; then 
+	zenity --error --text="Wrong input file format."
+	exit 1
+fi
+
+echo $fileName | grep "\.PNG" > /dev/null
+if [ "$?" == "0" ]; then  
+	fileNameEnd=${fileName/\.PNG/\.pdf}
+else
+	fileNameEnd=${fileName/\.png/\.pdf}
+fi
+
+convert $fileName $fileNameEnd
+zenity --info --text="Arquivo PDF gerado em\n${fileNameEnd}"
