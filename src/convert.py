@@ -9,12 +9,15 @@ def imgConvert(fileList=[], fileName=''):
         for file in fileList:
             try:
                 img.read(filename=file)
-            except BlobError:
-                raise IOError
+            except BlobError as e:
+                x = e.args[0]
+                raise IOError(x)
             with img.convert('pdf') as converted:
                 try:
                     converted.save(filename=fileName)
-                except BlobError:
-                    raise IOError
-                except IOError:
-                    raise IOError
+                except BlobError as e:
+                    x = e.args[0]
+                    raise IOError(x)
+                except IOError as e:
+                    x = e.args[0]
+                    raise IOError(x)
