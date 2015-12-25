@@ -1,11 +1,18 @@
 #! /usr/bin/python
 
+# PNG2PDF - Graphic interface related class and methods.
+
 from convert import imgConvert
 from gi.repository import Gtk, Gio
 
 class GuiWindow(Gtk.Window):
-
+    """
+    PNG2PDF main window class, derivates from Gtk window class.
+    """
     def __init__(self):
+        """
+        Creates main window.
+        """
         Gtk.Window.__init__(self, title='PNG2PDF')
         self.set_border_width(10)
         self.set_default_size(400, 200)
@@ -32,6 +39,9 @@ class GuiWindow(Gtk.Window):
         hb.pack_end(saveButton)
 
     def addFile(self, widget):
+        """
+        Add file (image) dialog.
+        """
         dialog = Gtk.FileChooserDialog("Please choose a file", self,
             Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -48,6 +58,9 @@ class GuiWindow(Gtk.Window):
         dialog.destroy()
 
     def saveFile(self, widget):
+        """
+        Save file name (PDF) dialog.
+        """
         dialog = Gtk.FileChooserDialog("Please choose a folder", self,
             Gtk.FileChooserAction.SELECT_FOLDER,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -64,6 +77,9 @@ class GuiWindow(Gtk.Window):
         dialog.destroy()
 
 def guiStart():
+    """
+    Create object instance and initiate main window.
+    """
     win = GuiWindow()
     win.connect('delete-event', Gtk.main_quit)
     win.show_all()
