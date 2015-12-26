@@ -62,14 +62,16 @@ class GuiWindow(Gtk.Window):
         Save file name (PDF) dialog.
         """
         dialog = Gtk.FileChooserDialog("Please choose a folder", self,
-            Gtk.FileChooserAction.SELECT_FOLDER,
+            Gtk.FileChooserAction.SAVE,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              "Select", Gtk.ResponseType.OK))
         dialog.set_default_size(800, 400)
 
+        dialog.set_current_name('document.pdf')
+
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
-            fileName = dialog.get_filename()+'/ww.pdf'
+            fileName = dialog.get_filename()
             imgConvert(self.fileList, fileName)
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel clicked")
