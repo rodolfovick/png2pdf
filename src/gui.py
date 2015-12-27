@@ -4,6 +4,7 @@
 
 from convert import imgConvert
 from gi.repository import Gtk, Gio
+from gi.repository.GdkPixbuf import Pixbuf, InterpType
 
 class GuiWindow(Gtk.Window):
     """
@@ -38,6 +39,12 @@ class GuiWindow(Gtk.Window):
         saveButton.add(saveImage)
         hb.pack_end(saveButton)
 
+        self.listStore = Gtk.ListStore(Pixbuf)
+        iconView = Gtk.IconView.new()
+        iconView.set_model(self.listStore)
+        iconView.set_pixbuf_column(0)
+        self.add(iconView)
+
     def addFile(self, widget):
         """
         Add file (image) dialog.
@@ -51,7 +58,10 @@ class GuiWindow(Gtk.Window):
 
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
-            self.fileList.append(dialog.get_filename())
+            fileName = dialog.get_filename()
+            self.fileList.append(fileName)
+            pixBuf = Pixbuf.new_from_file_at_size(fileName, 120, 120)
+            self.listStore.append([pixBuf])
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel clicked")
 
