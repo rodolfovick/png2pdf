@@ -2,7 +2,6 @@
 
 # PNG2PDF - Graphic interface related class and methods.
 
-from convert import imgConvert
 from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf, InterpType
 from wand.image import Image
@@ -47,7 +46,7 @@ class GuiWindow(Gtk.Window):
         iconView.set_pixbuf_column(0)
         self.add(iconView)
         
-    def imgConvert(fileList=[], fileName=''):
+    def imgConvert(self, fileList=[], fileName=''):
         """
         Convert images from fileList in pdf file named fileName.
         """
@@ -105,7 +104,7 @@ class GuiWindow(Gtk.Window):
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             fileName = dialog.get_filename()
-            imgConvert(self.fileList, fileName)
+            self.imgConvert(self.fileList, fileName)
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel clicked")
 
