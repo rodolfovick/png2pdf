@@ -5,6 +5,8 @@
 from convert import imgConvert
 from gi.repository import Gtk, Gio
 from gi.repository.GdkPixbuf import Pixbuf, InterpType
+from wand.image import Image
+from wand.exceptions import BlobError
 
 class GuiWindow(Gtk.Window):
     """
@@ -44,6 +46,27 @@ class GuiWindow(Gtk.Window):
         iconView.set_model(self.listStore)
         iconView.set_pixbuf_column(0)
         self.add(iconView)
+        
+    def imgConvert(fileList=[], fileName=''):
+        """
+        Convert images from fileList in pdf file named fileName.
+        """
+        with Image() as img:
+            for file in fileList:
+                try:
+                    img.read(filename=file)
+                except BlobError as e:
+                    x = e.args[0]
+                    raise IOError(x)
+                with img.convert('pdf') as converted:
+                    try:
+                        converted.save(filename=fileName)
+                    except BlobError as e:
+                        x = e.args[0]
+                        raise IOError(x)
+                    except IOError as e:
+                        x = e.args[0]
+                        raise IOError(x)
 
     def addFile(self, widget):
         """
@@ -88,12 +111,7 @@ class GuiWindow(Gtk.Window):
 
         dialog.destroy()
 
-def guiStart():
-    """
-    Create object instance and initiate main window.
-    """
-    win = GuiWindow()
-    win.connect('delete-event', Gtk.main_quit)
-    win.show_all()
-    Gtk.main()
-    return win
+win = GuiWindow()
+win.connect('delete-event', Gtk.main_quit)
+win.show_all()
+Gtk.main()
