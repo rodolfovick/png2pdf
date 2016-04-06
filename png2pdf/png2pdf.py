@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/env python
 
 # PNG2PDF - Graphic interface related class and methods.
 
@@ -18,6 +18,8 @@ class GuiWindow(Gtk.Window):
         Gtk.Window.__init__(self, title='PNG2PDF')
         self.set_border_width(10)
         self.set_default_size(400, 200)
+
+        # self.set_icon_from_file("../misc/png2pdf.svg")
 
         self.fileList = []
 
@@ -110,7 +112,9 @@ class GuiWindow(Gtk.Window):
 
         dialog.destroy()
 
-win = GuiWindow()
-win.connect('delete-event', Gtk.main_quit)
-win.show_all()
-Gtk.main()
+class Converter:
+    def __init__(self):
+        self.win = GuiWindow()
+        self.win.connect('delete-event', Gtk.main_quit)
+        self.win.show_all()
+        Gtk.main()

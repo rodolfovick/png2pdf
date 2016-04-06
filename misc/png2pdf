@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+
+import png2pdf
+
+converter = png2pdf.Png2pdf() 
