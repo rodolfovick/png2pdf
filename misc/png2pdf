@@ -2,4 +2,4 @@
 
 import png2pdf
 
-converter = png2pdf.Png2pdf() 
+converter = png2pdf.Converter()
