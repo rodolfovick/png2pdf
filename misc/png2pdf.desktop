@@ -1,11 +1,10 @@
 [Desktop Entry]
-Version=0.1
-Encoding=UTF-8
 Name=PNG2PDF
-Comment=Convert images to a pdf
+Comment=Convert images to a pdf file
+GenericName=PDF Converter
 Exec=png2pdf
-Icon=png2pdf.svg
-Terminal=false
+Icon=png2pdf
 Type=Application
 StartupNotify=true
+Terminal=false
 Categories=GNOME;GTK;Utility;
